@@ -13,81 +13,81 @@ import {
 } from "react-native";
 
 import { icons } from "../../constants";
-import { createVideoPost } from "../../lib/appwrite";
+
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Create = () => {
-  const { user } = useGlobalContext();
-  const [uploading, setUploading] = useState(false);
-  const [form, setForm] = useState({
-    title: "",
-    video: null,
-    thumbnail: null,
-    prompt: "",
-  });
+  // const { user } = useGlobalContext();
+  // const [uploading, setUploading] = useState(false);
+  // const [form, setForm] = useState({
+  //   title: "",
+  //   video: null,
+  //   thumbnail: null,
+  //   prompt: "",
+  // });
 
-  const openPicker = async (selectType) => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type:
-        selectType === "image"
-          ? ["image/png", "image/jpg"]
-          : ["video/mp4", "video/gif"],
-    });
+  // const openPicker = async (selectType) => {
+  //   const result = await DocumentPicker.getDocumentAsync({
+  //     type:
+  //       selectType === "image"
+  //         ? ["image/png", "image/jpg"]
+  //         : ["video/mp4", "video/gif"],
+  //   });
 
-    if (!result.canceled) {
-      if (selectType === "image") {
-        setForm({
-          ...form,
-          thumbnail: result.assets[0],
-        });
-      }
+  //   if (!result.canceled) {
+  //     if (selectType === "image") {
+  //       setForm({
+  //         ...form,
+  //         thumbnail: result.assets[0],
+  //       });
+  //     }
 
-      if (selectType === "video") {
-        setForm({
-          ...form,
-          video: result.assets[0],
-        });
-      }
-    } else {
-      setTimeout(() => {
-        Alert.alert("Document picked", JSON.stringify(result, null, 2));
-      }, 100);
-    }
-  };
+  //     if (selectType === "video") {
+  //       setForm({
+  //         ...form,
+  //         video: result.assets[0],
+  //       });
+  //     }
+  //   } else {
+  //     setTimeout(() => {
+  //       Alert.alert("Document picked", JSON.stringify(result, null, 2));
+  //     }, 100);
+  //   }
+  // };
 
-  const submit = async () => {
-    if (
-      (form.prompt === "") |
-      (form.title === "") |
-      !form.thumbnail |
-      !form.video
-    ) {
-      return Alert.alert("Please provide all fields");
-    }
+  // const submit = async () => {
+  //   if (
+  //     (form.prompt === "") |
+  //     (form.title === "") |
+  //     !form.thumbnail |
+  //     !form.video
+  //   ) {
+  //     return Alert.alert("Please provide all fields");
+  //   }
 
-    setUploading(true);
-    try {
-      await createVideoPost({
-        ...form,
-        userId: user.$id,
-      });
+  //   setUploading(true);
+  //   try {
+  //     await createVideoPost({
+  //       ...form,
+  //       userId: user.$id,
+  //     });
 
-      Alert.alert("Success", "Post uploaded successfully");
-      router.push("/home");
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setForm({
-        title: "",
-        video: null,
-        thumbnail: null,
-        prompt: "",
-      });
+  //     Alert.alert("Success", "Post uploaded successfully");
+  //     router.push("/home");
+  //   } catch (error) {
+  //     Alert.alert("Error", error.message);
+  //   } finally {
+  //     setForm({
+  //       title: "",
+  //       video: null,
+  //       thumbnail: null,
+  //       prompt: "",
+  //     });
 
-      setUploading(false);
-    }
-  };
+  //     setUploading(false);
+  //   }
+  // };
 
   return (
     <></>
